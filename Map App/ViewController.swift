@@ -67,6 +67,7 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
     }
     
     var onoff = true
+    
     @IBAction func press(_ sender: Any) {
         if onoff == true{
             self.locManager.startUpdatingLocation()
