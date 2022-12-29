@@ -12,10 +12,27 @@ import CoreLocation
 class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelegate {
     @IBOutlet weak var mapView: MKMapView!
     var locManager = CLLocationManager()
-   
+    var alert = UIAlertController()
+    let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
     @IBOutlet weak var button: UIButton!
+    var anot = MKPointAnnotation()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        alert = UIAlertController(title: "Enter location name", message: nil, preferredStyle: .alert)
+        alert.addTextField { (textField) in textField.placeholder = "Name" }
+        alert.addTextField { (textField) in textField.placeholder = "Note" }
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+            
+            let nameField = self.alert.textFields![0] as UITextField
+            let note = self.alert.textFields![1] as UITextField
+            
+            self.anot.title = nameField.text
+            self.anot.subtitle = note.text
+            self.mapView.addAnnotation(self.anot)
+            nameField.text = ""
+            note.text = ""
+        })
         mapView.delegate = self
         locManager.delegate = self
         locManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -25,37 +42,21 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
         mapView.mapType = .standard
         
         let gesRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(chooseLocation(gestureRec: )))
-        gesRecognizer.minimumPressDuration = 1.5
+        gesRecognizer.minimumPressDuration = 1
         mapView.addGestureRecognizer(gesRecognizer)
     }
     
+    
     @objc func chooseLocation(gestureRec:UILongPressGestureRecognizer){
-        let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
-        impactFeedbackGenerator.impactOccurred()
-
-        let alert = UIAlertController(title: "Enter location name", message: nil, preferredStyle: .alert)
-        alert.addTextField { (textField) in textField.placeholder = "Name" }
-        alert.addTextField { (textField) in textField.placeholder = "Note" }
-
-            
+        if gestureRec.state == .began{
+            present(alert, animated: true)
+            impactFeedbackGenerator.impactOccurred()
+                        
             let touchedPoint = gestureRec.location(in: self.mapView)
             let touchedCoordinates = mapView.convert(touchedPoint, toCoordinateFrom: self.mapView)
-            let anot = MKPointAnnotation()
-            anot.coordinate = touchedCoordinates
+            anot = MKPointAnnotation()
+            self.anot.coordinate = touchedCoordinates
             
-            self.mapView.addAnnotation(anot)
-        if gestureRec.state == .began{
-            
-            alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-                
-                let nameField = alert.textFields![0] as UITextField
-                let note = alert.textFields![1] as UITextField
-                
-                anot.title = nameField.text
-                anot.subtitle = note.text
-                
-            })
-            present(alert, animated: true)
         }
     }
     
