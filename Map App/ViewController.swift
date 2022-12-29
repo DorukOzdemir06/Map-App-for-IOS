@@ -22,21 +22,22 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
         locManager.requestWhenInUseAuthorization()
         
         mapView.showsUserLocation = true
-        
+        mapView.mapType = .standard
         
         let gesRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(chooseLocation(gestureRec: )))
-        gesRecognizer.minimumPressDuration = 2
+        gesRecognizer.minimumPressDuration = 1.5
         mapView.addGestureRecognizer(gesRecognizer)
     }
     
     @objc func chooseLocation(gestureRec:UILongPressGestureRecognizer){
+        let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+        impactFeedbackGenerator.impactOccurred()
+
         let alert = UIAlertController(title: "Enter location name", message: nil, preferredStyle: .alert)
         alert.addTextField { (textField) in textField.placeholder = "Name" }
-        
-        
-        
+        alert.addTextField { (textField) in textField.placeholder = "Note" }
+
             
-            let textField = alert.textFields![0]
             let touchedPoint = gestureRec.location(in: self.mapView)
             let touchedCoordinates = mapView.convert(touchedPoint, toCoordinateFrom: self.mapView)
             let anot = MKPointAnnotation()
@@ -46,12 +47,14 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
         if gestureRec.state == .began{
             
             alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-                        // Get the text from the text field
-                if let name = alert.textFields?.first?.text {
-                            // Do something with the text
-                    anot.title = name
-                        }
-                    })
+                
+                let nameField = alert.textFields![0] as UITextField
+                let note = alert.textFields![1] as UITextField
+                
+                anot.title = nameField.text
+                anot.subtitle = note.text
+                
+            })
             present(alert, animated: true)
         }
     }
