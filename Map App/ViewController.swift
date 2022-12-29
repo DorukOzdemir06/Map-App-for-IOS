@@ -19,6 +19,26 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
     var anot = MKPointAnnotation()
     
     
+    func loadLocations(){
+        let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Places")
+        
+        do {
+            let objects = try managedObjectContext.fetch(fetchRequest)
+            for object in objects {
+                self.anot = MKPointAnnotation()
+                self.anot.title = object.value(forKey: "name") as? String
+                self.anot.subtitle = object.value(forKey: "note") as? String
+                self.anot.coordinate.longitude = object.value(forKey: "longitude") as! Double
+                self.anot.coordinate.latitude = object.value(forKey: "latitude") as! Double
+                self.mapView.addAnnotation(anot)
+                
+            }
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
+    
     func saveLocation(){
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
@@ -30,6 +50,14 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
         newPlace.setValue(self.anot.subtitle, forKey: "note")
         newPlace.setValue(self.anot.coordinate.longitude, forKey: "longitude")
         newPlace.setValue(self.anot.coordinate.latitude, forKey: "latitude")
+        
+        do{
+            try context.save()
+            print("db save completed")
+        }
+        catch{
+            print("db save error")
+        }
     }
 
     override func viewDidLoad() {
@@ -60,6 +88,7 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
         let gesRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(chooseLocation(gestureRec: )))
         gesRecognizer.minimumPressDuration = 1
         mapView.addGestureRecognizer(gesRecognizer)
+        loadLocations()
     }
     
     
