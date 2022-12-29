@@ -8,6 +8,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import CoreData
 
 class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelegate {
     @IBOutlet weak var mapView: MKMapView!
@@ -16,6 +17,20 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
     let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
     @IBOutlet weak var button: UIButton!
     var anot = MKPointAnnotation()
+    
+    
+    func saveLocation(){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let newPlace = NSEntityDescription.insertNewObject(forEntityName: "Places", into: context)
+        
+        newPlace.setValue(UUID(), forKey: "id")
+        newPlace.setValue(self.anot.title, forKey: "name")
+        newPlace.setValue(self.anot.subtitle, forKey: "note")
+        newPlace.setValue(self.anot.coordinate.longitude, forKey: "longitude")
+        newPlace.setValue(self.anot.coordinate.latitude, forKey: "latitude")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +44,8 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
             
             self.anot.title = nameField.text
             self.anot.subtitle = note.text
-            self.mapView.addAnnotation(self.anot)
+            self.saveLocation()
+            
             nameField.text = ""
             note.text = ""
         })
@@ -56,7 +72,7 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
             let touchedCoordinates = mapView.convert(touchedPoint, toCoordinateFrom: self.mapView)
             anot = MKPointAnnotation()
             self.anot.coordinate = touchedCoordinates
-            
+            self.mapView.addAnnotation(self.anot)
         }
     }
     
