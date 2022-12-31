@@ -17,9 +17,10 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
     let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
     @IBOutlet weak var button: UIButton!
     var anot = Anot( id: nil, location: MKPointAnnotation())
+    var touchedPoint:CGPoint = CGPoint()
+    var touchedCoordinates:CLLocationCoordinate2D = CLLocationCoordinate2D()
     
-    
-    func loadLocations(){
+    private func loadLocations(){
         let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Places")
         
@@ -39,13 +40,13 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
         }
     }
     
-    func saveLocation(){
+    private func saveLocation(){
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
         let newPlace = NSEntityDescription.insertNewObject(forEntityName: "Places", into: context)
         
-        var Id = UUID()
+        let Id = UUID()
         
         newPlace.setValue(Id, forKey: "id")
         self.anot.id = Id;
@@ -73,11 +74,13 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
         alert = UIAlertController(title: "Enter location name", message: nil, preferredStyle: .alert)
         alert.addTextField { (textField) in textField.placeholder = "Name" }
         alert.addTextField { (textField) in textField.placeholder = "Note" }
-        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-            
-            let nameField = self.alert.textFields![0] as UITextField
-            let note = self.alert.textFields![1] as UITextField
-            
+        let nameField = self.alert.textFields![0] as UITextField
+        let note = self.alert.textFields![1] as UITextField
+        
+        alert.addAction(UIAlertAction(title: "Add", style: .cancel) { _ in
+            self.anot = Anot( id: nil, location: MKPointAnnotation())
+            self.anot.location.coordinate = self.touchedCoordinates
+            self.mapView.addAnnotation(self.anot.location)
             self.anot.location.title = nameField.text
             self.anot.location.subtitle = note.text
             self.saveLocation()
@@ -85,7 +88,10 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
             nameField.text = ""
             note.text = ""
         })
-        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive) { _ in
+            nameField.text = ""
+            note.text = ""
+        })
         
         mapView.showsUserLocation = true
         mapView.mapType = .standard
@@ -99,16 +105,15 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
     
     @objc func chooseLocation(gestureRec:UILongPressGestureRecognizer){
         if gestureRec.state == .began{
-            present(alert, animated: true)
+            touchedPoint = gestureRec.location(in: self.mapView)
+            touchedCoordinates = mapView.convert(touchedPoint, toCoordinateFrom: self.mapView)
             impactFeedbackGenerator.impactOccurred()
-                        
-            let touchedPoint = gestureRec.location(in: self.mapView)
-            let touchedCoordinates = mapView.convert(touchedPoint, toCoordinateFrom: self.mapView)
-            anot = Anot( id: nil, location: MKPointAnnotation())
-            self.anot.location.coordinate = touchedCoordinates
-            self.mapView.addAnnotation(self.anot.location)
+            present(alert, animated: true)
+                
+            
         }
     }
+    
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude)
@@ -118,7 +123,6 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
     }
     
     var onoff = true
-    
     @IBAction func press(_ sender: Any) {
         if onoff == true{
             self.locManager.startUpdatingLocation()
