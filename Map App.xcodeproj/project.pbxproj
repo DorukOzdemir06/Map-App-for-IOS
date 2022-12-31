@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		434B4FE02960882400443583 /* Anot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434B4FDF2960882400443583 /* Anot.swift */; };
+		434B4FE22960C6C000443583 /* listVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434B4FE12960C6C000443583 /* listVC.swift */; };
 		43EAD9A9295CB3AB00B9FABF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EAD9A8295CB3AB00B9FABF /* AppDelegate.swift */; };
 		43EAD9AB295CB3AB00B9FABF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EAD9AA295CB3AB00B9FABF /* SceneDelegate.swift */; };
 		43EAD9AD295CB3AB00B9FABF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EAD9AC295CB3AB00B9FABF /* ViewController.swift */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		434B4FDF2960882400443583 /* Anot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anot.swift; sourceTree = "<group>"; };
+		434B4FE12960C6C000443583 /* listVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = listVC.swift; sourceTree = "<group>"; };
 		43EAD9A5295CB3AB00B9FABF /* Map App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Map App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43EAD9A8295CB3AB00B9FABF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43EAD9AA295CB3AB00B9FABF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				43EAD9A8295CB3AB00B9FABF /* AppDelegate.swift */,
 				43EAD9AA295CB3AB00B9FABF /* SceneDelegate.swift */,
 				43EAD9AC295CB3AB00B9FABF /* ViewController.swift */,
+				434B4FE12960C6C000443583 /* listVC.swift */,
 				43EAD9AE295CB3AB00B9FABF /* Main.storyboard */,
 				43EAD9B4295CB3AC00B9FABF /* Assets.xcassets */,
 				43EAD9B6295CB3AC00B9FABF /* LaunchScreen.storyboard */,
@@ -148,6 +151,7 @@
 				43EAD9AD295CB3AB00B9FABF /* ViewController.swift in Sources */,
 				43EAD9A9295CB3AB00B9FABF /* AppDelegate.swift in Sources */,
 				43EAD9B3295CB3AB00B9FABF /* Map_App.xcdatamodeld in Sources */,
+				434B4FE22960C6C000443583 /* listVC.swift in Sources */,
 				43EAD9AB295CB3AB00B9FABF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JLG-A3-QuP">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
@@ -21,38 +21,96 @@
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                                 <standardMapConfiguration key="preferredConfiguration"/>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l8p-94-2tY">
-                                <rect key="frame" x="51" y="47" width="289" height="35"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Tracking Off"/>
-                                <connections>
-                                    <action selector="press:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lHI-pU-HKU"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="l8p-94-2tY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="3oR-a1-0xm"/>
-                            <constraint firstItem="vfh-fO-M8U" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="5kH-eF-oly"/>
-                            <constraint firstItem="l8p-94-2tY" firstAttribute="centerX" secondItem="vfh-fO-M8U" secondAttribute="centerX" id="HNH-zl-CxB"/>
-                            <constraint firstAttribute="bottom" secondItem="vfh-fO-M8U" secondAttribute="bottom" id="Lpr-Dm-NRZ"/>
-                            <constraint firstItem="l8p-94-2tY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="51" id="OES-kD-PmL"/>
-                            <constraint firstItem="vfh-fO-M8U" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Tpj-lF-Grg"/>
-                            <constraint firstItem="vfh-fO-M8U" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="h2x-ea-kDh"/>
+                            <constraint firstAttribute="bottom" secondItem="vfh-fO-M8U" secondAttribute="bottom" id="GeX-P9-aNG"/>
+                            <constraint firstItem="vfh-fO-M8U" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="fRj-bR-D41"/>
+                            <constraint firstItem="vfh-fO-M8U" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="fxK-6R-WU0"/>
+                            <constraint firstItem="vfh-fO-M8U" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="qea-oW-rYF"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="BDL-B1-Te0">
+                        <nil key="title"/>
+                        <button key="titleView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="qoK-qM-XX1">
+                            <rect key="frame" x="136.33333333333334" y="5" width="117.66666666666666" height="34.333333333333336"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Tracking Off"/>
+                            <connections>
+                                <action selector="press:" destination="BYZ-38-t0r" eventType="touchUpInside" id="P4F-hv-NJY"/>
+                            </connections>
+                        </button>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="list.dash" catalog="system" id="ABt-Rz-vAy">
+                            <connections>
+                                <action selector="listButtonPress:" destination="BYZ-38-t0r" id="CRy-VH-eTT"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="button" destination="l8p-94-2tY" id="ngv-i3-Wb7"/>
+                        <outlet property="button" destination="qoK-qM-XX1" id="xgO-1H-uv9"/>
+                        <outlet property="listButton" destination="ABt-Rz-vAy" id="qMr-O2-06U"/>
                         <outlet property="mapView" destination="vfh-fO-M8U" id="d3U-pV-tGQ"/>
+                        <segue destination="8LL-96-FZn" kind="show" identifier="toList" id="80X-J4-bgb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-95.384615384615387" y="-483.41232227488149"/>
+            <point key="canvasLocation" x="923.07692307692309" y="-483.41232227488149"/>
+        </scene>
+        <!--list-->
+        <scene sceneID="de4-jR-Cp0">
+            <objects>
+                <viewController title="list" id="8LL-96-FZn" customClass="listVC" customModule="Map_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fAG-aN-MNN">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Y1x-5a-b7L">
+                                <rect key="frame" x="0.0" y="91" width="390" height="719"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="P8N-Ec-agV"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Y1x-5a-b7L" firstAttribute="leading" secondItem="P8N-Ec-agV" secondAttribute="leading" id="9Z4-7c-X4G"/>
+                            <constraint firstItem="P8N-Ec-agV" firstAttribute="trailing" secondItem="Y1x-5a-b7L" secondAttribute="trailing" id="DHL-uE-PjF"/>
+                            <constraint firstItem="P8N-Ec-agV" firstAttribute="bottom" secondItem="Y1x-5a-b7L" secondAttribute="bottom" id="TAq-zn-52J"/>
+                            <constraint firstItem="Y1x-5a-b7L" firstAttribute="top" secondItem="P8N-Ec-agV" secondAttribute="top" id="wSI-Sh-Vmi"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Locations" id="6CO-Ut-Vu9"/>
+                    <connections>
+                        <outlet property="list" destination="Y1x-5a-b7L" id="kMI-1U-FtA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oUl-8W-23E" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1660" y="-483.41232227488149"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Ch6-hE-ofD">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="JLG-A3-QuP" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3e9-vp-T0K">
+                        <rect key="frame" x="0.0" y="47" width="390" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="9ty-JT-Zuy"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vq9-iL-QCh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-6.1538461538461533" y="-483.41232227488149"/>
         </scene>
     </scenes>
     <resources>
+        <image name="list.dash" catalog="system" width="128" height="85"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

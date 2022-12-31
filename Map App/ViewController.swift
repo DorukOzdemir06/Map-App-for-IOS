@@ -15,6 +15,7 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
     var locManager = CLLocationManager()
     var alert = UIAlertController()
     let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+    @IBOutlet weak var listButton: UIBarButtonItem!
     @IBOutlet weak var button: UIButton!
     var anot = Anot( id: nil, location: MKPointAnnotation())
     var touchedPoint:CGPoint = CGPoint()
@@ -26,6 +27,7 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
         
         do {
             let objects = try managedObjectContext.fetch(fetchRequest)
+            
             for object in objects {
                 self.anot = Anot( id: object.value(forKey: "id") as? UUID, location: MKPointAnnotation())
                 self.anot.location.title = object.value(forKey: "name") as? String
@@ -63,6 +65,10 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
             print("db save error")
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadLocations()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,6 +82,7 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
         alert.addTextField { (textField) in textField.placeholder = "Note" }
         let nameField = self.alert.textFields![0] as UITextField
         let note = self.alert.textFields![1] as UITextField
+        
         
         alert.addAction(UIAlertAction(title: "Add", style: .cancel) { _ in
             self.anot = Anot( id: nil, location: MKPointAnnotation())
@@ -123,6 +130,19 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
     }
     
     var onoff = true
+    
+    
+    @IBAction func listButtonPress(_ sender: Any) {
+        performSegue(withIdentifier: "toList", sender: nil)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toList"{
+            let listVC = segue.destination as! listVC
+            
+            
+        }
+    }
+    
     @IBAction func press(_ sender: Any) {
         if onoff == true{
             self.locManager.startUpdatingLocation()
