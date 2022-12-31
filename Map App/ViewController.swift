@@ -69,6 +69,10 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
     override func viewWillAppear(_ animated: Bool) {
         loadLocations()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        mapView.removeAnnotations(mapView.annotations)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
