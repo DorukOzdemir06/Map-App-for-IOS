@@ -16,7 +16,7 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
     var alert = UIAlertController()
     let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
     @IBOutlet weak var button: UIButton!
-    var anot = MKPointAnnotation()
+    var anot = Anot( id: nil, location: MKPointAnnotation())
     
     
     func loadLocations(){
@@ -26,12 +26,12 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
         do {
             let objects = try managedObjectContext.fetch(fetchRequest)
             for object in objects {
-                self.anot = MKPointAnnotation()
-                self.anot.title = object.value(forKey: "name") as? String
-                self.anot.subtitle = object.value(forKey: "note") as? String
-                self.anot.coordinate.longitude = object.value(forKey: "longitude") as! Double
-                self.anot.coordinate.latitude = object.value(forKey: "latitude") as! Double
-                self.mapView.addAnnotation(anot)
+                self.anot = Anot( id: object.value(forKey: "id") as? UUID, location: MKPointAnnotation())
+                self.anot.location.title = object.value(forKey: "name") as? String
+                self.anot.location.subtitle = object.value(forKey: "note") as? String
+                self.anot.location.coordinate.longitude = object.value(forKey: "longitude") as! Double
+                self.anot.location.coordinate.latitude = object.value(forKey: "latitude") as! Double
+                self.mapView.addAnnotation(anot.location)
                 
             }
         } catch let error as NSError {
@@ -45,11 +45,14 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
         
         let newPlace = NSEntityDescription.insertNewObject(forEntityName: "Places", into: context)
         
-        newPlace.setValue(UUID(), forKey: "id")
-        newPlace.setValue(self.anot.title, forKey: "name")
-        newPlace.setValue(self.anot.subtitle, forKey: "note")
-        newPlace.setValue(self.anot.coordinate.longitude, forKey: "longitude")
-        newPlace.setValue(self.anot.coordinate.latitude, forKey: "latitude")
+        var Id = UUID()
+        
+        newPlace.setValue(Id, forKey: "id")
+        self.anot.id = Id;
+        newPlace.setValue(self.anot.location.title, forKey: "name")
+        newPlace.setValue(self.anot.location.subtitle, forKey: "note")
+        newPlace.setValue(self.anot.location.coordinate.longitude, forKey: "longitude")
+        newPlace.setValue(self.anot.location.coordinate.latitude, forKey: "latitude")
         
         do{
             try context.save()
@@ -62,6 +65,11 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        mapView.delegate = self
+        locManager.delegate = self
+        locManager.desiredAccuracy = kCLLocationAccuracyBest
+        locManager.requestWhenInUseAuthorization()
+        loadLocations()
         alert = UIAlertController(title: "Enter location name", message: nil, preferredStyle: .alert)
         alert.addTextField { (textField) in textField.placeholder = "Name" }
         alert.addTextField { (textField) in textField.placeholder = "Note" }
@@ -70,17 +78,14 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
             let nameField = self.alert.textFields![0] as UITextField
             let note = self.alert.textFields![1] as UITextField
             
-            self.anot.title = nameField.text
-            self.anot.subtitle = note.text
+            self.anot.location.title = nameField.text
+            self.anot.location.subtitle = note.text
             self.saveLocation()
             
             nameField.text = ""
             note.text = ""
         })
-        mapView.delegate = self
-        locManager.delegate = self
-        locManager.desiredAccuracy = kCLLocationAccuracyBest
-        locManager.requestWhenInUseAuthorization()
+        
         
         mapView.showsUserLocation = true
         mapView.mapType = .standard
@@ -88,7 +93,7 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
         let gesRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(chooseLocation(gestureRec: )))
         gesRecognizer.minimumPressDuration = 1
         mapView.addGestureRecognizer(gesRecognizer)
-        loadLocations()
+        
     }
     
     
@@ -99,9 +104,9 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
                         
             let touchedPoint = gestureRec.location(in: self.mapView)
             let touchedCoordinates = mapView.convert(touchedPoint, toCoordinateFrom: self.mapView)
-            anot = MKPointAnnotation()
-            self.anot.coordinate = touchedCoordinates
-            self.mapView.addAnnotation(self.anot)
+            anot = Anot( id: nil, location: MKPointAnnotation())
+            self.anot.location.coordinate = touchedCoordinates
+            self.mapView.addAnnotation(self.anot.location)
         }
     }
     
