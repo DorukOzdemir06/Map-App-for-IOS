@@ -35,6 +35,12 @@ class listVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let id = locs[indexPath.row].value(forKey: "id") as? UUID
+        NotificationCenter.default.post(name: NSNotification.Name("goLocation"), object: id)
+        navigationController?.popViewController(animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath){
         if editingStyle == .delete{
 

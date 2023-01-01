@@ -91,6 +91,37 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
     
     override func viewWillAppear(_ animated: Bool) {
         loadLocations()
+        NotificationCenter.default.addObserver(self, selector: #selector(goLocation(_:)), name: NSNotification.Name(rawValue: "goLocation"), object: nil)
+    }
+    
+    @objc func goLocation(_ notification: Notification) {
+        
+        if let data = notification.object as? UUID {
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+            
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Places")
+            
+                         
+            fetchRequest.predicate = NSPredicate(format: "id = %@", data as CVarArg)
+                            
+            fetchRequest.returnsObjectsAsFaults = false
+            
+            do{
+                let result = try context.fetch(fetchRequest)
+                let res = result[0] as? NSManagedObject
+                
+                
+                let location = CLLocationCoordinate2D(latitude: res?.value(forKey: "latitude") as! CLLocationDegrees, longitude: res?.value(forKey: "longitude") as! CLLocationDegrees)
+                let span = MKCoordinateSpan(latitudeDelta: 0.025, longitudeDelta: 0.025)
+                let region = MKCoordinateRegion(center: location, span: span)
+                mapView.setRegion(region, animated: true)
+            }
+            catch{
+                print("error while go")
+            }
+            
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
