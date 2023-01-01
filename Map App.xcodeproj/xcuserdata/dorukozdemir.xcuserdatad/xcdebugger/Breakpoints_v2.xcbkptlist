@@ -20,5 +20,221 @@
             landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "33983367-6500-4D7A-AE1B-E4E079279125"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Map App/listVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "listVC"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "33983367-6500-4D7A-AE1B-E4E079279125 - b706b6f6403674fb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Map_App.listVC.managedObjectContext.getter : Swift.Optional&lt;__C.NSManagedObjectContext&gt;"
+                  moduleName = "Map App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dorukozdemir/Desktop/IOS%20Apps/Map%20App/Map%20App/listVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "88">
+               </Location>
+               <Location
+                  uuid = "33983367-6500-4D7A-AE1B-E4E079279125 - dbeec4674fa41ccf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Map_App.listVC.managedObjectContext.setter : Swift.Optional&lt;__C.NSManagedObjectContext&gt;"
+                  moduleName = "Map App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dorukozdemir/Desktop/IOS%20Apps/Map%20App/Map%20App/listVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "108">
+               </Location>
+               <Location
+                  uuid = "33983367-6500-4D7A-AE1B-E4E079279125 - b0e7297cd485fefe"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Map_App.listVC.managedObjectContext.modify : Swift.Optional&lt;__C.NSManagedObjectContext&gt;"
+                  moduleName = "Map App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dorukozdemir/Desktop/IOS%20Apps/Map%20App/Map%20App/listVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "33983367-6500-4D7A-AE1B-E4E079279125 - 570fd35397e51826"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Map_App.listVC.managedObjectContext.modify : Swift.Optional&lt;__C.NSManagedObjectContext&gt; with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "Map App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dorukozdemir/Desktop/IOS%20Apps/Map%20App/Map%20App/listVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  uuid = "33983367-6500-4D7A-AE1B-E4E079279125 - 67981d6ecdf3aaf8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Map_App.listVC.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; Map_App.listVC"
+                  moduleName = "Map App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dorukozdemir/Desktop/IOS%20Apps/Map%20App/Map%20App/listVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "144">
+               </Location>
+               <Location
+                  uuid = "33983367-6500-4D7A-AE1B-E4E079279125 - a0f02ee81dfbf8e5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Map_App.listVC.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;Map_App.listVC&gt;"
+                  moduleName = "Map App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dorukozdemir/Desktop/IOS%20Apps/Map%20App/Map%20App/listVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "120">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2A9BD325-B71C-4E61-88CE-9930E20EDD69"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Map App/listVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "14"
+            endingLineNumber = "14"
+            landmarkName = "listVC"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "2A9BD325-B71C-4E61-88CE-9930E20EDD69 - 90341ea7321e2249"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Map_App.listVC.list.getter : Swift.Optional&lt;__C.UITableView&gt;"
+                  moduleName = "Map App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dorukozdemir/Desktop/IOS%20Apps/Map%20App/Map%20App/listVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "88">
+               </Location>
+               <Location
+                  uuid = "2A9BD325-B71C-4E61-88CE-9930E20EDD69 - 32fce4ad88dc4e5d"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Map_App.listVC.list.setter : Swift.Optional&lt;__C.UITableView&gt;"
+                  moduleName = "Map App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dorukozdemir/Desktop/IOS%20Apps/Map%20App/Map%20App/listVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "108">
+               </Location>
+               <Location
+                  uuid = "2A9BD325-B71C-4E61-88CE-9930E20EDD69 - 4b3b173a8ad1874e"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Map_App.listVC.list.modify : Swift.Optional&lt;__C.UITableView&gt;"
+                  moduleName = "Map App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dorukozdemir/Desktop/IOS%20Apps/Map%20App/Map%20App/listVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "2A9BD325-B71C-4E61-88CE-9930E20EDD69 - b2c6a3f23f0bb75d"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Map_App.listVC.list.modify : Swift.Optional&lt;__C.UITableView&gt; with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "Map App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dorukozdemir/Desktop/IOS%20Apps/Map%20App/Map%20App/listVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "28">
+               </Location>
+               <Location
+                  uuid = "2A9BD325-B71C-4E61-88CE-9930E20EDD69 - 67981d6ecdf3ab19"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Map_App.listVC.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; Map_App.listVC"
+                  moduleName = "Map App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dorukozdemir/Desktop/IOS%20Apps/Map%20App/Map%20App/listVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "100">
+               </Location>
+               <Location
+                  uuid = "2A9BD325-B71C-4E61-88CE-9930E20EDD69 - a0f02ee81dfbf904"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Map_App.listVC.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;Map_App.listVC&gt;"
+                  moduleName = "Map App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dorukozdemir/Desktop/IOS%20Apps/Map%20App/Map%20App/listVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "76">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

@@ -60,11 +60,13 @@ class listVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         list.dataSource = self
         list.delegate = self
-    
+        
         managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Places")
         

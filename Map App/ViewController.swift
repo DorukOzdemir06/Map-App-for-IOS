@@ -21,6 +21,17 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
     var touchedPoint:CGPoint = CGPoint()
     var touchedCoordinates:CLLocationCoordinate2D = CLLocationCoordinate2D()
     
+    override func viewDidDisappear(_ animated: Bool) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        do{
+            try context.save()
+        }
+        catch{
+            
+        }
+    }
     private func loadLocations(){
         let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Places")
@@ -93,7 +104,7 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
         locManager.delegate = self
         locManager.desiredAccuracy = kCLLocationAccuracyBest
         locManager.requestWhenInUseAuthorization()
-        loadLocations()
+        
         alert = UIAlertController(title: "Enter location name", message: nil, preferredStyle: .alert)
         alert.addTextField { (textField) in textField.placeholder = "Name" }
         alert.addTextField { (textField) in textField.placeholder = "Note" }
@@ -118,7 +129,7 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
         })
         
         mapView.showsUserLocation = true
-        mapView.mapType = .standard
+        mapView.mapType = .mutedStandard
         
         let gesRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(chooseLocation(gestureRec: )))
         gesRecognizer.minimumPressDuration = 1
