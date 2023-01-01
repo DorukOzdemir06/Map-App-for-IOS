@@ -7,8 +7,11 @@
 
 import UIKit
 import CoreData
+import CoreLocation
+
 
 class listVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    @IBOutlet weak var list: UITableView!
    
     var locs:[NSManagedObject] = []
     
@@ -17,20 +20,29 @@ class listVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell ()
-     
-        var content = cell.defaultContentConfiguration ()
-        content.text = locs[indexPath.row].value(forKey: "name") as? String
+        let cell = list.dequeueReusableCell(withIdentifier: "listCell", for: indexPath) as! customViewCell
         
         
-        cell.contentConfiguration = content
+        cell.name.text = locs[indexPath.row].value(forKey: "name") as? String
+        cell.note.text = locs[indexPath.row].value(forKey: "note") as? String
+
+    
+        CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: locs[indexPath.row].value(forKey: "latitude") as! CLLocationDegrees, longitude: locs[indexPath.row].value(forKey: "longitude") as! CLLocationDegrees)) { (placemarks, error) in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+
+            if let placemarks = placemarks, let placemark = placemarks.first {
+                if let city = placemark.locality {
+                    cell.city.text = city
+                }
+            }
+        }
+        
+        
         return cell
     }
-    
-    
-    @IBOutlet weak var list: UITableView!
-    
-
     
     
     override func viewDidLoad() {
@@ -48,7 +60,12 @@ class listVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
         
-      
+        
+        
+        
+        
+        
+       
     }
     
 
