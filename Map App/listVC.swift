@@ -12,8 +12,11 @@ import CoreLocation
 
 class listVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var list: UITableView!
+    var managedObjectContext:NSManagedObjectContext?
+    var fetchRequest:NSFetchRequest<NSManagedObject>?
    
     var locs:[NSManagedObject] = []
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return locs.count
@@ -44,31 +47,50 @@ class listVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath){
+        if editingStyle == .delete{
+
+            // Fetch the item you want to delete
+            //let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Item")
+            //fetchRequest.predicate = NSPredicate(format: "id == %@", "12345")
+            //let items = try! context.fetch(fetchRequest)
+
+            // Delete the item
+            var i = 0
+            while i < locs.count {
+                
+                if i == indexPath.row{
+                    managedObjectContext!.delete(locs[indexPath.row])
+                    locs.remove(at: indexPath.row)
+                    do{
+                        try managedObjectContext!.save()
+                    }
+                    catch{print("error")}
+                    self.list.reloadData()
+                    break
+                }
+                i += 1
+            }
+            i = 0
+            
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         list.dataSource = self
         list.delegate = self
     
-        let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Places")
+        managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Places")
         
         do {
-            locs = try managedObjectContext.fetch(fetchRequest)
+            locs = try managedObjectContext!.fetch(fetchRequest!)
             
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
         
-        
-        
-        
-        
-        
-       
     }
-    
-
-
 
 }
