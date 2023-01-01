@@ -56,10 +56,22 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
         newPlace.setValue(self.anot.location.subtitle, forKey: "note")
         newPlace.setValue(self.anot.location.coordinate.longitude, forKey: "longitude")
         newPlace.setValue(self.anot.location.coordinate.latitude, forKey: "latitude")
+        CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: self.anot.location.coordinate.latitude, longitude:self.anot.location.coordinate.longitude)) { (placemarks, error) in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+
+            if let placemarks = placemarks, let placemark = placemarks.first {
+                if let city = placemark.locality {
+                    newPlace.setValue(city, forKey: "city")
+                }
+            }
+        }
         
         do{
             try context.save()
-            print("db save completed")
+
         }
         catch{
             print("db save error")
@@ -76,6 +88,7 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         mapView.delegate = self
         locManager.delegate = self
         locManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -139,13 +152,7 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
     @IBAction func listButtonPress(_ sender: Any) {
         performSegue(withIdentifier: "toList", sender: nil)
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toList"{
-            let listVC = segue.destination as! listVC
-            
-            
-        }
-    }
+    
     
     @IBAction func press(_ sender: Any) {
         if onoff == true{

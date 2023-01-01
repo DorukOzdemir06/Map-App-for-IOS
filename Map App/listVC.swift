@@ -28,20 +28,8 @@ class listVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         cell.name.text = locs[indexPath.row].value(forKey: "name") as? String
         cell.note.text = locs[indexPath.row].value(forKey: "note") as? String
-
-    
-        CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: locs[indexPath.row].value(forKey: "latitude") as! CLLocationDegrees, longitude: locs[indexPath.row].value(forKey: "longitude") as! CLLocationDegrees)) { (placemarks, error) in
-            if let error = error {
-                print("Error: \(error)")
-                return
-            }
-
-            if let placemarks = placemarks, let placemark = placemarks.first {
-                if let city = placemark.locality {
-                    cell.city.text = city
-                }
-            }
-        }
+        cell.city.text = locs[indexPath.row].value(forKey: "city") as? String
+        
         
         
         return cell
@@ -50,10 +38,6 @@ class listVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath){
         if editingStyle == .delete{
 
-            // Fetch the item you want to delete
-            //let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Item")
-            //fetchRequest.predicate = NSPredicate(format: "id == %@", "12345")
-            //let items = try! context.fetch(fetchRequest)
 
             // Delete the item
             var i = 0
