@@ -14,9 +14,7 @@ class listVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var list: UITableView!
     var managedObjectContext:NSManagedObjectContext?
     var fetchRequest:NSFetchRequest<NSManagedObject>?
-   
     var locs:[NSManagedObject] = []
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return locs.count
@@ -25,12 +23,9 @@ class listVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = list.dequeueReusableCell(withIdentifier: "listCell", for: indexPath) as! customViewCell
         
-        
         cell.name.text = locs[indexPath.row].value(forKey: "name") as? String
         cell.note.text = locs[indexPath.row].value(forKey: "note") as? String
         cell.city.text = locs[indexPath.row].value(forKey: "city") as? String
-        
-        
         
         return cell
     }
@@ -44,8 +39,6 @@ class listVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath){
         if editingStyle == .delete{
-
-
             // Delete the item
             var i = 0
             while i < locs.count {
@@ -62,8 +55,6 @@ class listVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 }
                 i += 1
             }
-            i = 0
-            
         }
     }
     
@@ -79,8 +70,8 @@ class listVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         do {
             locs = try managedObjectContext!.fetch(fetchRequest!)
-            
-        } catch let error as NSError {
+        } catch
+            let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
         

@@ -54,7 +54,7 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
         })
         
         mapView.showsUserLocation = true
-        mapView.mapType = .mutedStandard
+        mapView.mapType = .standard
         
         let gesRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(chooseLocation(gestureRec: )))
         gesRecognizer.minimumPressDuration = 1
@@ -199,10 +199,10 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
             pinView?.canShowCallout = true
             
             let navButton = UIButton(type: .custom)
-            navButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+            navButton.frame = CGRect(x: 0, y: 0, width: 23, height: 23)
             navButton.setImage(UIImage(named: "goImage"), for: .normal)
             let delButton = UIButton(type: .custom)
-            delButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+            delButton.frame = CGRect(x: 0, y: 0, width: 23, height: 23)
             delButton.setImage(UIImage(named: "deleteImage"), for: .normal)
             
             pinView?.rightCalloutAccessoryView = navButton
@@ -212,9 +212,48 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
         else{
             pinView?.annotation = annotation
         }
-      
-        
         return pinView
     }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if control == view.rightCalloutAccessoryView{
+            if let anott = view.annotation{
+                //nav code
+                let currentLocation = MKMapItem.forCurrentLocation()
+                
+                let destination = MKMapItem(placemark: MKPlacemark(coordinate: anott.coordinate))
+                destination.name = anott.title!
+                
+                MKMapItem.openMaps(with: [currentLocation, destination], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDefault])
+            }
+        }
+        else if control == view.leftCalloutAccessoryView{
+            if let anott = view.annotation{
+                //delete code
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Places")
+                
+                fetchRequest.predicate = NSPredicate(format: "longitude == %f", (anott.coordinate.longitude as Double))
+                fetchRequest.predicate = NSPredicate(format: "latitude == %f", (anott.coordinate.latitude as Double) )
+                let name = (anott.title! ?? "nil") as String
+                fetchRequest.predicate = NSPredicate(format: "name == %@", name)
+                let note = (anott.subtitle! ?? "nil") as String
+                fetchRequest.predicate = NSPredicate(format: "note == %@", note)
+                fetchRequest.returnsObjectsAsFaults = false
+                
+                do{
+                    let fetched = try con.fetch(fetchRequest)
+                    
+                    con.delete(fetched[0] as! NSManagedObject)
+                    
+                    mapView.removeAnnotation(anott)
+                    try con.save()
+                }
+                catch{
+                    print("mapView delete button error")
+                }
+            }
+        }
+    }
+
 }
 
