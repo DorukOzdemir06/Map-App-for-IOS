@@ -198,16 +198,21 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: anotId)
             pinView?.canShowCallout = true
             
-            let navButton = UIButton(type: UIButton.ButtonType.detailDisclosure)
-            navButton.setImage(UIImage(named: "goButton"), for: .normal)
+            let navButton = UIButton(type: .custom)
+            navButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+            navButton.setImage(UIImage(named: "goImage"), for: .normal)
+            let delButton = UIButton(type: .custom)
+            delButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+            delButton.setImage(UIImage(named: "deleteImage"), for: .normal)
             
             pinView?.rightCalloutAccessoryView = navButton
+            pinView?.leftCalloutAccessoryView = delButton
             
-        
         }
         else{
             pinView?.annotation = annotation
         }
+      
         
         return pinView
     }
